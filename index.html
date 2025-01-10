@@ -1,31 +1,29 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8" />
-  <title>Operation CyberShield - CipherHaven</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CipherHaven - 1.000 IDs</title>
   <style>
-    /* Enkel styling */
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
     }
-    #lockButton {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    .hidden {
-      display: none;
-    }
     .checkbox-container {
       display: flex;
       flex-wrap: wrap;
-      max-width: 900px;
+      gap: 10px;
+      max-width: 1000px;
     }
     .checkbox-item {
-      width: 120px;
+      width: 80px;
       margin-bottom: 10px;
+    }
+    #lockButton {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
     }
   </style>
   <script>
@@ -50,40 +48,43 @@
       alert("Server accessed! Mission accomplished!");
       window.location.href = "success.html";
     }
-  </script>
 
-  <!-- Her (i en kommentar) kan man hint'e til KeyCollector: 
-       Find de rigtige nøgler på: https://[ditRepo]/keycollector/index.html 
-  -->
+
+    // Funktion til at generere 1.000 ID'er
+    function generateIDs() {
+      const container = document.querySelector('.checkbox-container');
+      
+      for (let i = 1; i <= 1000; i++) {
+        // Opret en checkbox og et label
+        const div = document.createElement('div');
+        div.className = 'checkbox-item';
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.value = i; // Brug ID-nummeret direkte som værdi
+
+        const label = document.createElement('label');
+        label.textContent = i; // Vis kun tallet uden 'ID_'
+
+        // Saml checkbox og label
+        div.appendChild(checkbox);
+        div.appendChild(label);
+
+        // Tilføj til containeren
+        container.appendChild(div);
+      }
+    }
+
+    // Kør genereringen, når siden er loadet
+    window.onload = generateIDs;
+  </script>
 </head>
 <body>
   <h1>Velkommen til CipherHaven</h1>
-  <p>
-    Afkryds de korrekte ID’s nedenfor og klik på <strong>"Lås skjoldet"</strong> 
-    inden for 30 sekunder!
-  </p>
+  <p>Afkryds de korrekte ID'er og klik på "Lås skjoldet".</p>
 
-  <form id="idForm">
-    <div class="checkbox-container">
-      <!-- Her viser vi kun et lille udsnit af 1.000 ID’s som eksempel -->
-      <div class="checkbox-item">
-        <input type="checkbox" name="cipherIDs" value="ID_0001" />
-        <label>ID_0001</label>
-      </div>
-      <div class="checkbox-item">
-        <input type="checkbox" name="cipherIDs" value="ID_0002" />
-        <label>ID_0002</label>
-      </div>
-      <div class="checkbox-item">
-        <input type="checkbox" name="cipherIDs" value="ID_0003" />
-        <label>ID_0003</label>
-      </div>
-      <!-- ... fortsæt op til fx ID_1000 ... -->
-    </div>
+  <div class="checkbox-container"></div> <!-- Her genereres ID'erne -->
 
-    <button type="button" id="lockButton" onclick="lockShield()">
-      Lås skjoldet
-    </button>
-  </form>
+  <button id="lockButton" onclick="lockShield()">Lås skjoldet</button>
 </body>
 </html>
