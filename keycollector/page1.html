@@ -1,56 +1,74 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8" />
-  <title>KeyCollector - Side 1</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KeyCollector - Underside</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: "Courier New", Courier, monospace;
+      background-color: black;
+      color: limegreen;
       margin: 20px;
+      text-align: center;
     }
     table {
+      margin: 0 auto;
       border-collapse: collapse;
-      margin-top: 20px;
+      width: 80%;
     }
     th, td {
-      border: 1px solid #ccc;
-      padding: 8px;
+      border: 1px solid limegreen;
+      padding: 10px;
+      text-align: left;
     }
   </style>
 </head>
 <body>
-  <h1>KeyCollector - Side 1</h1>
-  <p>
-    Nedenfor vises en tabel med tekst og ID. 
-    Husk at kun rækker med "Key" i tekstkolonnen er relevante.
-  </p>
+  <h1>KeyCollector</h1>
+  <table id="keyTable"></table>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Tekst</th>
-        <th>ID</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Key</td>
-        <td>KEY_12345678</td>
-      </tr>
-      <tr>
-        <td>XYZ</td>
-        <td>XYZ_99999999</td>
-      </tr>
-      <tr>
-        <td>Key</td>
-        <td>KEY_11223344</td>
-      </tr>
-      <tr>
-        <td>Falsk</td>
-        <td>ABC_88888888</td>
-      </tr>
-      <!-- ... fortsæt ... -->
-    </tbody>
-  </table>
+  <script>
+    // Funktion til at generere tilfældige varianter af "Key"
+    function generateRandomText(isKey) {
+      if (isKey) return "Key";
+      const variants = ["Ley", "Kea", "Kay", "Kee", "Koy"];
+      return variants[Math.floor(Math.random() * variants.length)];
+    }
+
+    // Funktion til at generere tabellen
+    function generateTable() {
+      const table = document.getElementById("keyTable");
+      const numbers = Array.from({ length: 1000 }, (_, i) => i + 1);
+      const keys = new Set();
+
+      // Udvælg 10 tilfældige nøgler, der skal have teksten "Key"
+      while (keys.size < 10) {
+        keys.add(numbers[Math.floor(Math.random() * numbers.length)]);
+      }
+
+      // Byg tabellen med to kolonner
+      for (let i = 0; i < numbers.length; i += 2) {
+        const row = document.createElement("tr");
+
+        // Første kolonne
+        const cell1 = document.createElement("td");
+        cell1.textContent = `${generateRandomText(keys.has(numbers[i]))} ${numbers[i]}`;
+        row.appendChild(cell1);
+
+        // Anden kolonne
+        const cell2 = document.createElement("td");
+        if (numbers[i + 1]) {
+          cell2.textContent = `${generateRandomText(keys.has(numbers[i + 1]))} ${numbers[i + 1]}`;
+        }
+        row.appendChild(cell2);
+
+        table.appendChild(row);
+      }
+    }
+
+    // Generer tabellen, når siden er indlæst
+    window.onload = generateTable;
+  </script>
 </body>
 </html>
