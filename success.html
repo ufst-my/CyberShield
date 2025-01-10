@@ -1,21 +1,50 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8" />
-  <title>Mission Accomplished</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mission Result</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
+      font-family: "Courier New", Courier, monospace;
+      background-color: black;
+      color: limegreen;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
       text-align: center;
     }
     .message {
-      margin-top: 50px;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
     }
   </style>
 </head>
 <body>
-  <h1>Server accessed! Mission accomplished!</h1>
+  <div class="message" id="result">Indlæser...</div>
+
+  <script>
+    // Hent data fra URL'en
+    const params = new URLSearchParams(window.location.search);
+    const ids = params.getAll('ids[]'); // 'ids[]' matcher checkbox-navnet i formularen
+
+    // Forventede ID'er for succes
+    const requiredIds = ['998', '999', '1000'];
+
+    // Funktion til at validere de valgte ID'er
+    function validateIds(selectedIds) {
+      // Tjek om der er præcis 3 ID'er og om de matcher de krævede ID'er
+      return selectedIds.length === 3 && requiredIds.every(id => selectedIds.includes(id));
+    }
+
+    // Opdater beskeden baseret på validering
+    const resultElement = document.getElementById('result');
+    if (validateIds(ids)) {
+      resultElement.textContent = "Server accessed! Mission accomplished!";
+    } else {
+      resultElement.textContent = "Fejl: De valgte ID'er er ikke korrekte.";
+    }
+  </script>
 </body>
 </html>
