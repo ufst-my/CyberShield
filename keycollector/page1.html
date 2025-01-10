@@ -3,72 +3,63 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KeyCollector - Underside</title>
+  <title>KeyCollector - Side 1</title>
   <style>
     body {
       font-family: "Courier New", Courier, monospace;
       background-color: black;
       color: limegreen;
       margin: 20px;
-      text-align: center;
     }
-    table {
-      margin: 0 auto;
-      border-collapse: collapse;
-      width: 80%;
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)); /* Juster cellernes bredde */
+      gap: 5px; /* Afstand mellem cellerne */
+      justify-items: center; /* Centrer cellernes indhold */
     }
-    th, td {
+    .grid-item {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       border: 1px solid limegreen;
-      padding: 10px;
-      text-align: left;
     }
   </style>
 </head>
 <body>
   <h1>KeyCollector</h1>
-  <table id="keyTable"></table>
+  <div class="grid-container" id="grid"></div>
 
   <script>
-    // Funktion til at generere tilfældige varianter af "Key"
-    function generateRandomText(isKey) {
-      if (isKey) return "Key";
-      const variants = ["Ley", "Kea", "Kay", "Kee", "Koy"];
-      return variants[Math.floor(Math.random() * variants.length)];
-    }
-
     // Funktion til at generere tabellen
-    function generateTable() {
-      const table = document.getElementById("keyTable");
-      const numbers = Array.from({ length: 1000 }, (_, i) => i + 1);
-      const keys = new Set();
+    function generateGrid() {
+      const container = document.getElementById("grid");
 
-      // Udvælg 10 tilfældige nøgler, der skal have teksten "Key"
-      while (keys.size < 10) {
-        keys.add(numbers[Math.floor(Math.random() * numbers.length)]);
-      }
+      for (let i = 1; i <= 100; i++) {
+        const cell = document.createElement("div");
+        cell.className = "grid-item";
 
-      // Byg tabellen med to kolonner
-      for (let i = 0; i < numbers.length; i += 2) {
-        const row = document.createElement("tr");
+        // Indsæt tallet i cellen
+        cell.textContent = i;
 
-        // Første kolonne
-        const cell1 = document.createElement("td");
-        cell1.textContent = `${generateRandomText(keys.has(numbers[i]))} ${numbers[i]}`;
-        row.appendChild(cell1);
-
-        // Anden kolonne
-        const cell2 = document.createElement("td");
-        if (numbers[i + 1]) {
-          cell2.textContent = `${generateRandomText(keys.has(numbers[i + 1]))} ${numbers[i + 1]}`;
+        // Sæt "Key" som data-id, hvis tallet ender på 1
+        if (i % 10 === 1) {
+          cell.setAttribute("data-id", "Key");
+        } else {
+          // Tilfældig variant for de andre
+          const variants = ["Ley", "Kea", "Kay", "Kee", "Koy"];
+          const randomText = variants[Math.floor(Math.random() * variants.length)];
+          cell.setAttribute("data-id", randomText);
         }
-        row.appendChild(cell2);
 
-        table.appendChild(row);
+        // Tilføj cellen til containeren
+        container.appendChild(cell);
       }
     }
 
-    // Generer tabellen, når siden er indlæst
-    window.onload = generateTable;
+    // Generer grid, når siden er indlæst
+    window.onload = generateGrid;
   </script>
 </body>
 </html>
