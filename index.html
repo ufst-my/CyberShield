@@ -3,10 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CipherHaven - 1.000 IDs</title>
+  <title>CipherHaven - Matrix Style</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: "Courier New", Courier, monospace;
+      background-color: black;
+      color: limegreen;
       margin: 20px;
     }
     .checkbox-container {
@@ -24,32 +26,15 @@
       padding: 10px 20px;
       font-size: 16px;
       cursor: pointer;
+      color: black;
+      background-color: limegreen;
+      border: none;
+    }
+    #lockButton.hidden {
+      display: none;
     }
   </style>
   <script>
-    // Denne funktion kører, når siden er loadet
-    window.onload = function() {
-      // Start en 30 sek timer
-      setTimeout(hideLockButton, 30000);
-    };
-
-    function hideLockButton() {
-      // Skjul knappen
-      const btn = document.getElementById("lockButton");
-      if (btn) {
-        btn.classList.add("hidden");
-      }
-    }
-
-    function lockShield() {
-      /*
-        Validering af nøgler?
-      */
-      alert("Server accessed! Mission accomplished!");
-      window.location.href = "success.html";
-    }
-
-
     // Funktion til at generere 1.000 ID'er
     function generateIDs() {
       const container = document.querySelector('.checkbox-container');
@@ -61,10 +46,11 @@
 
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
+        checkbox.name = 'ids[]'; // Array for valgte ID'er
         checkbox.value = i; // Brug ID-nummeret direkte som værdi
 
         const label = document.createElement('label');
-        label.textContent = i; // Vis kun tallet uden 'ID_'
+        label.textContent = i;
 
         // Saml checkbox og label
         div.appendChild(checkbox);
@@ -75,16 +61,29 @@
       }
     }
 
+    // Funktion til at skjule knappen efter 30 sekunder
+    function hideLockButton() {
+      const btn = document.getElementById("lockButton");
+      if (btn) {
+        btn.classList.add("hidden");
+      }
+    }
+
     // Kør genereringen, når siden er loadet
-    window.onload = generateIDs;
+    window.onload = function () {
+      generateIDs();
+      setTimeout(hideLockButton, 30000); // Skjul knappen efter 30 sekunder
+    };
   </script>
 </head>
 <body>
   <h1>Velkommen til CipherHaven</h1>
-  <p>Afkryds de korrekte ID'er og klik på "Lås skjoldet".</p>
+  <p>Afkryds de korrekte ID'er og klik på "Lås skjoldet" inden for 30 sekunder.</p>
 
-  <div class="checkbox-container"></div> <!-- Her genereres ID'erne -->
-
-  <button id="lockButton" onclick="lockShield()">Lås skjoldet</button>
+  <!-- Formular, der sender data til success.html -->
+  <form action="success.html" method="GET">
+    <div class="checkbox-container"></div> <!-- Her genereres ID'erne -->
+    <button type="submit" id="lockButton">Lås skjoldet</button>
+  </form>
 </body>
 </html>
