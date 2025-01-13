@@ -80,10 +80,19 @@
   <h1>Velkommen til CipherHaven</h1>
   <p>Afkryds de korrekte ID'er og klik på "Lås skjoldet op" inden for 30 sekunder.</p>
 
-  <!-- Formular, der sender data til success.html -->
-  <form action="success.html" method="GET">
-    <div class="checkbox-container"></div> <!-- Her genereres ID'erne -->
+  <form onsubmit="saveToLocalStorage(event)">
+    <div class="checkbox-container"></div>
     <button type="submit" id="lockButton">Lås skjoldet op</button>
   </form>
+  <script>
+    function saveToLocalStorage(event) {
+      event.preventDefault();
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+      const selectedIds = Array.from(checkboxes).map(cb => cb.value);
+      localStorage.setItem('selectedIds', JSON.stringify(selectedIds));
+      window.location.href = "success.html";
+    }
+  </script>
+  
 </body>
 </html>
