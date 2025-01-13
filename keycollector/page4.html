@@ -43,39 +43,37 @@
   <h1>KeyCollector</h1>
   <div id="container"></div>
   <script>
-    function generateGroups() {
-      const container = document.getElementById("container");
-      for (let i = 301; i <= 400; i += 10) {
-        const group = document.createElement("div");
-        group.className = "group";
+    const container = document.getElementById("container");
+    for (let i = 301; i <= 400; i += 10) {
+      const group = document.createElement("div");
+      group.className = "group";
 
-        const header = document.createElement("div");
-        header.className = "group-header";
-        header.textContent = `Gruppe ${i}-${i + 9}`;
-        header.onclick = function () {
-          const content = this.nextElementSibling;
-          content.style.display = content.style.display === "block" ? "none" : "block";
-        };
-        const content = document.createElement("div");
-        content.className = "group-content";
-        for (let j = i; j < i + 10; j++) {
-          const cell = document.createElement("div");
-          cell.className = "grid-item";
-          cell.textContent = j;
-          if (j % 10 === 1) {
-            cell.setAttribute("data-id", "Key");
-          } else {
-            const variants = ["Ley", "Kea", "Kay", "Kee", "Koy"];
-            cell.setAttribute("data-id", variants[Math.floor(Math.random() * variants.length)]);
+      const header = document.createElement("div");
+      header.className = "group-header";
+      header.textContent = `Gruppe ${i}-${i + 9}`;
+
+      const content = document.createElement("div");
+      content.className = "group-content";
+
+      header.onclick = function () {
+        if (!content.innerHTML) {
+          for (let j = i; j < i + 10; j++) {
+            const item = document.createElement("div");
+            item.className = "grid-item";
+            item.textContent = j;
+            if (j % 10 === 1) {
+              item.setAttribute("data-id", "Key");
+            }
+            content.appendChild(item);
           }
-          content.appendChild(cell);
         }
-        group.appendChild(header);
-        group.appendChild(content);
-        container.appendChild(group);
-      }
+        content.style.display = content.style.display === "block" ? "none" : "block";
+      };
+
+      group.appendChild(header);
+      group.appendChild(content);
+      container.appendChild(group);
     }
-    window.onload = generateGroups;
   </script>
 </body>
 </html>
