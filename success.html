@@ -26,7 +26,7 @@
       return btoa(id); 
     }
     const selectedIds = JSON.parse(localStorage.getItem('selectedIds')) || [];
-    const maskedSelectedIds = selectedIds.map(maskId); // Maskér de valgte ID'er
+    const maskedSelectedIds = selectedIds.map(maskId);
     function validateMaskedIds(ids) {
       return ids.length === 3 && requiredIds.every(id => ids.includes(id));
     }
