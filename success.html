@@ -2,7 +2,6 @@
 <html lang="da">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mission Result</title>
   <style>
     body {
@@ -16,21 +15,23 @@
       margin: 0;
       text-align: center;
     }
-    .message {
-      font-size: 1.5rem;
-    }
   </style>
 </head>
 <body>
-  <div class="message" id="result">Indlæser...</div>
+  <div id="result">Indlæser resultat...</div>
+
   <script>
+    const requiredIds = ['OTk4', 'OTk5', 'MTAwMA=='];
+    function maskId(id) {
+      return btoa(id); 
+    }
     const selectedIds = JSON.parse(localStorage.getItem('selectedIds')) || [];
-    const resultElement = document.getElementById('result');
-    function validateIds(ids) {
-      const requiredIds = ['998', '999', '1000'];
+    const maskedSelectedIds = selectedIds.map(maskId); // Maskér de valgte ID'er
+    function validateMaskedIds(ids) {
       return ids.length === 3 && requiredIds.every(id => ids.includes(id));
     }
-    if (validateIds(selectedIds)) {
+    const resultElement = document.getElementById('result');
+    if (validateMaskedIds(maskedSelectedIds)) {
       resultElement.innerHTML = "De korrekte ID's er valgt!<br/>Server accessed! Mission accomplished!";
     } else {
       resultElement.textContent = "Fejl: De valgte ID's er ikke korrekte.";
