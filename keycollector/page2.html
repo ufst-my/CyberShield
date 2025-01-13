@@ -1,57 +1,65 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KeyCollector - Side 1</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: "Courier New", Courier, monospace;
+      background-color: black;
+      color: limegreen;
       margin: 20px;
     }
-    table {
-      border-collapse: collapse;
-      margin-top: 20px;
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)); /* Juster cellernes bredde */
+      gap: 5px; /* Afstand mellem cellerne */
+      justify-items: center; /* Centrer cellernes indhold */
     }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 8px;
+    .grid-item {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid limegreen;
     }
   </style>
 </head>
 <body>
-  <h1>KeyCollector - Side 1</h1>
-  <p>
-    Nedenfor vises en tabel med tekst og ID. 
-    Husk at kun rækker med "Key" i tekstkolonnen er relevante.
-  </p>
+  <h1>KeyCollector</h1>
+  <div class="grid-container" id="grid"></div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Tekst</th>
-        <th>ID</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Key</td>
-        <td>KEY_12345678</td>
-      </tr>
-      <tr>
-        <td>XYZ</td>
-        <td>XYZ_99999999</td>
-      </tr>
-      <tr>
-        <td>Key</td>
-        <td>KEY_11223344</td>
-      </tr>
-      <tr>
-        <td>Falsk</td>
-        <td>ABC_88888888</td>
-      </tr>
-      <!-- ... fortsæt ... -->
-    </tbody>
-  </table>
+  <script>
+    // Funktion til at generere tabellen
+    function generateGrid() {
+      const container = document.getElementById("grid");
 
+      for (let i = 1; i <= 100; i++) {
+        const cell = document.createElement("div");
+        cell.className = "grid-item";
+
+        // Indsæt tallet i cellen
+        cell.textContent = i;
+
+        // Sæt "Key" som data-id, hvis tallet ender på 1
+        if (i % 10 === 1) {
+          cell.setAttribute("data-id", "Key");
+        } else {
+          // Tilfældig variant for de andre
+          const variants = ["Ley", "Kea", "Kay", "Kee", "Koy"];
+          const randomText = variants[Math.floor(Math.random() * variants.length)];
+          cell.setAttribute("data-id", randomText);
+        }
+
+        // Tilføj cellen til containeren
+        container.appendChild(cell);
+      }
+    }
+
+    // Generer grid, når siden er indlæst
+    window.onload = generateGrid;
+  </script>
 </body>
 </html>
