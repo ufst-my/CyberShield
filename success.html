@@ -23,43 +23,19 @@
 </head>
 <body>
   <div class="message" id="result">Indlæser...</div>
-
   <script>
-    // Hent data fra URL'en
-    const params = new URLSearchParams(window.location.search);
-    const ids = params.getAll('ids[]'); // 'ids[]' matcher checkbox-navnet i formularen
-
-    // Forventede ID'er for succes
-    const requiredIds = ['998', '999', '1000'];
-
-    // Funktion til at validere de valgte ID'er
-    function validateIds(selectedIds) {
-      // Tjek om der er præcis 3 ID'er og om de matcher de krævede ID'er
-      return selectedIds.length === 3 && requiredIds.every(id => selectedIds.includes(id));
-    }
-
-    // Opdater beskeden baseret på validering
+    const selectedIds = JSON.parse(localStorage.getItem('selectedIds')) || [];
     const resultElement = document.getElementById('result');
-    if (validateIds(ids)) {
+    function validateIds(ids) {
+      const requiredIds = ['998', '999', '1000'];
+      return ids.length === 3 && requiredIds.every(id => ids.includes(id));
+    }
+    if (validateIds(selectedIds)) {
       resultElement.innerHTML = "De korrekte ID's er valgt!<br/>Server accessed! Mission accomplished!";
     } else {
       resultElement.textContent = "Fejl: De valgte ID's er ikke korrekte.";
     }
-  </script>
-
-  <script>
-    const selectedIds = JSON.parse(localStorage.getItem('selectedIds')) || []; // Hent fra localStorage
-  
-    if (selectedIds.length > 0) {
-      document.body.innerHTML = `<h1>Valgte ID'er: ${selectedIds.join(', ')}</h1>`;
-    } else {
-      document.body.innerHTML = "<h1>Ingen ID'er blev valgt.</h1>";
-    }
-  
-    // Valgfrit: Fjern data fra localStorage efter visning
     localStorage.removeItem('selectedIds');
   </script>
-
-  
 </body>
 </html>
