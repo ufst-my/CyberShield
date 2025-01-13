@@ -24,14 +24,10 @@
 <body>
   <h1>KeyCollector - Side med iFrame</h1>
   <iframe id="keyFrame" src="about:blank"></iframe>
-
   <script>
-    // Generer iframe-indholdet dynamisk
     function generateIframeContent() {
       const iframe = document.getElementById("keyFrame");
       const doc = iframe.contentWindow.document;
-
-      // Grundlæggende HTML-struktur for iframe
       doc.open();
       doc.write(`
         <!DOCTYPE html>
@@ -65,27 +61,21 @@
         </html>
       `);
       doc.close();
-
-      // Dynamisk generering af grid-elementer
       const container = doc.getElementById("gridContainer");
-      for (let i = 1; i <= 100; i++) {
+      for (let i = 201; i <= 300; i++) {
         const cell = doc.createElement("div");
         cell.className = "grid-item";
-        cell.textContent = i; // Viser kun tallet
+        cell.textContent = i; 
 
-        // Tilføj data-id baseret på specifikation
         if (i % 10 === 1) {
-          cell.setAttribute("data-id", "Key"); // "Key" for tal, der ender på 1
+          cell.setAttribute("data-id", "Key"); 
         } else {
           const variants = ["Ley", "Kea", "Kay", "Kee", "Koy"];
           cell.setAttribute("data-id", variants[Math.floor(Math.random() * variants.length)]);
         }
-
         container.appendChild(cell);
       }
     }
-
-    // Kør funktionen, når siden indlæses
     window.onload = generateIframeContent;
   </script>
 </body>
