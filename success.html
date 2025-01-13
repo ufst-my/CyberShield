@@ -46,5 +46,20 @@
       resultElement.textContent = "Fejl: De valgte ID's er ikke korrekte.";
     }
   </script>
+
+  <script>
+    const selectedIds = JSON.parse(localStorage.getItem('selectedIds')) || []; // Hent fra localStorage
+  
+    if (selectedIds.length > 0) {
+      document.body.innerHTML = `<h1>Valgte ID'er: ${selectedIds.join(', ')}</h1>`;
+    } else {
+      document.body.innerHTML = "<h1>Ingen ID'er blev valgt.</h1>";
+    }
+  
+    // Valgfrit: Fjern data fra localStorage efter visning
+    localStorage.removeItem('selectedIds');
+  </script>
+
+  
 </body>
 </html>
