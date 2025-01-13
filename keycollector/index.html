@@ -1,42 +1,65 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-  <meta charset="UTF-8" />
-  <title>KeyCollector - Forside</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KeyCollector - Oversigt</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: "Courier New", Courier, monospace;
+      background-color: black;
+      color: limegreen;
       margin: 20px;
+      text-align: center;
     }
-    ul {
-      list-style-type: none;
-      padding-left: 0;
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+      justify-items: center;
     }
-    li {
-      margin: 5px 0;
+    .grid-item {
+      width: 120px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid limegreen;
+      text-decoration: none;
+      color: limegreen;
     }
-    a {
-      color: blue;
+    .grid-item:hover {
+      background-color: limegreen;
+      color: black;
     }
   </style>
-  <!-- 
-       "Kun ID's med 'Key' i tekstkolonnen er gyldige. Resten er falske."
-  -->
 </head>
 <body>
   <h1>KeyCollector - Oversigt</h1>
-  <p>Her finder du 10 undersider med ID-lister:</p>
-  <ul>
-    <li><a href="page1.html">Side 1</a></li>
-    <li><a href="page2.html">Side 2</a></li>
-    <li><a href="page3.html">Side 3</a></li>
-    <li><a href="page4.html">Side 4</a></li>
-    <li><a href="page5.html">Side 5</a></li>
-    <li><a href="page6.html">Side 6</a></li>
-    <li><a href="page7.html">Side 7</a></li>
-    <li><a href="page8.html">Side 8</a></li>
-    <li><a href="page9.html">Side 9</a></li>
-    <li><a href="page10.html">Side 10</a></li>
-  </ul>
+  <div class="grid-container" id="grid"></div>
+
+  <script>
+    // Funktion til at generere oversigten
+    function generateOverview() {
+      const container = document.getElementById("grid");
+      const pageCount = 10; // Antal undersider
+
+      for (let i = 1; i <= pageCount; i++) {
+        const link = document.createElement("a");
+        link.className = "grid-item";
+        link.href = `page${i}/index.html`; // Link til undersidens sti
+        link.textContent = `Side ${i}`;
+
+        // Tilføj data-id (kan være beskrivende eller tilfældigt)
+        link.setAttribute("data-id", `Page_${i}`);
+
+        // Tilføj link til containeren
+        container.appendChild(link);
+      }
+    }
+
+    // Generer oversigten, når siden er indlæst
+    window.onload = generateOverview;
+  </script>
 </body>
 </html>
