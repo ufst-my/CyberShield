@@ -13,9 +13,9 @@
     }
     .grid-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)); /* Juster cellernes bredde */
-      gap: 5px; /* Afstand mellem cellerne */
-      justify-items: center; /* Centrer cellernes indhold */
+      grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+      gap: 5px;
+      justify-items: center;
     }
     .grid-item {
       width: 50px;
@@ -32,33 +32,22 @@
   <div class="grid-container" id="grid"></div>
 
   <script>
-    // Funktion til at generere tabellen
     function generateGrid() {
       const container = document.getElementById("grid");
-
-      for (let i = 1; i <= 100; i++) {
+      for (let i = 101; i <= 200; i++) {
         const cell = document.createElement("div");
         cell.className = "grid-item";
-
-        // Indsæt tallet i cellen
         cell.textContent = i;
-
-        // Sæt "Key" som data-id, hvis tallet ender på 1
         if (i % 10 === 1) {
           cell.setAttribute("data-id", "Key");
         } else {
-          // Tilfældig variant for de andre
           const variants = ["Ley", "Kea", "Kay", "Kee", "Koy"];
           const randomText = variants[Math.floor(Math.random() * variants.length)];
           cell.setAttribute("data-id", randomText);
         }
-
-        // Tilføj cellen til containeren
         container.appendChild(cell);
       }
     }
-
-    // Generer grid, når siden er indlæst
     window.onload = generateGrid;
   </script>
 </body>
