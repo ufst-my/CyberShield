@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KeyCollector</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+    h1 {
+      font-family: "Courier New", Courier, monospace;
+      background-color: black;
+      color: limegreen;
+      margin: 0;
+      padding: 10px;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>KeyCollector</h1>
+  <iframe id="keyFrame" src="about:blank"></iframe>
+  <script>
+    function generateIframeContent() {
+      const iframe = document.getElementById("keyFrame");
+      const doc = iframe.contentWindow.document;
+      doc.open();
+      doc.write(`
+        <!DOCTYPE html>
+        <html lang="da">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <style>
+            body {
+              font-family: "Courier New", Courier, monospace;
+              background-color: black;
+              color: limegreen;
+              margin: 0;
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+              gap: 5px;
+              padding: 20px;
+              justify-items: center;
+            }
+            .grid-item {
+              width: 50px;
+              height: 50px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border: 1px solid limegreen;
+            }
+          </style>
+        </head>
+        <body id="gridContainer"></body>
+        </html>
+      `);
+      doc.close();
+      const container = doc.getElementById("gridContainer");
+      for (let i = 501; i <= 600; i++) {
+        const cell = doc.createElement("div");
+        cell.className = "grid-item";
+        cell.textContent = i; 
+        if (i % 10 === 1) {
+          cell.setAttribute("data-id", "Key");
+        } else {
+          const variants = ["Ley", "Kea", "Kay", "Kee", "Koy"];
+          cell.setAttribute("data-id", variants[Math.floor(Math.random() * variants.length)]);
+        }
+        container.appendChild(cell);
+      }
+    }
+    window.onload = generateIframeContent;
+  </script>
+</body>
+</html>
