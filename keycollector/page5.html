@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KeyCollector</title>
+  <style>
+    body {
+      font-family: "Courier New", Courier, monospace;
+      background-color: black;
+      color: limegreen;
+      margin: 20px;
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+      gap: 5px;
+      justify-items: center;
+    }
+    .grid-item {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid limegreen;
+    }
+  </style>
+</head>
+<body>
+  <h1>KeyCollector</h1>
+  <div class="grid-container" id="grid"></div>
+  <script>
+    function generateGrid() {
+      const container = document.getElementById("grid");
+      for (let i = 401; i <= 500; i++) {
+        const cell = document.createElement("div");
+        cell.className = "grid-item";
+        cell.textContent = i;
+        if (i % 10 === 1) {
+          cell.setAttribute("data-id", "Key");
+        } else {
+          const variants = ["Ley", "Kea", "Kay", "Kee", "Koy"];
+          const randomText = variants[Math.floor(Math.random() * variants.length)];
+          cell.setAttribute("data-id", randomText);
+        }
+        container.appendChild(cell);
+      }
+    }
+    window.onload = generateGrid;
+  </script>
+</body>
+</html>
