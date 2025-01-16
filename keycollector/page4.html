@@ -47,14 +47,11 @@
     for (let i = 301; i <= 400; i += 10) {
       const group = document.createElement("div");
       group.className = "group";
-
       const header = document.createElement("div");
       header.className = "group-header";
       header.textContent = `Gruppe ${i}-${i + 9}`;
-
       const content = document.createElement("div");
       content.className = "group-content";
-
       header.onclick = function () {
         if (!content.innerHTML) {
           for (let j = i; j < i + 10; j++) {
@@ -69,7 +66,6 @@
         }
         content.style.display = content.style.display === "block" ? "none" : "block";
       };
-
       group.appendChild(header);
       group.appendChild(content);
       container.appendChild(group);
