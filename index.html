@@ -35,55 +35,48 @@
     }
   </style>
   <script>
-    // Funktion til at generere 1.000 ID'er
     function generateIDs() {
       const container = document.querySelector('.checkbox-container');
-      
       for (let i = 1; i <= 1000; i++) {
-        // Opret en checkbox og et label
         const div = document.createElement('div');
         div.className = 'checkbox-item';
-
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
-        checkbox.name = 'ids[]'; // Array for valgte ID'er
-        checkbox.value = i; // Brug ID-nummeret direkte som værdi
-
+        checkbox.name = 'ids[]';
+        checkbox.value = i;
         const label = document.createElement('label');
         label.textContent = i;
-
-        // Saml checkbox og label
         div.appendChild(checkbox);
         div.appendChild(label);
-
-        // Tilføj til containeren
         container.appendChild(div);
       }
     }
-
-    // Funktion til at skjule knappen efter 30 sekunder
     function hideLockButton() {
       const btn = document.getElementById("lockButton");
       if (btn) {
         btn.classList.add("hidden");
       }
     }
-
-    // Kør genereringen, når siden er loadet
     window.onload = function () {
       generateIDs();
-      setTimeout(hideLockButton, 30000); // Skjul knappen efter 30 sekunder
+      setTimeout(hideLockButton, 30000);
     };
   </script>
 </head>
 <body>
   <h1>Velkommen til CipherHaven</h1>
   <p>Afkryds de korrekte ID'er og klik på "Lås skjoldet op" inden for 30 sekunder.</p>
-
   <form onsubmit="saveToLocalStorage(event)">
     <div class="checkbox-container"></div>
     <button type="submit" id="lockButton">Lås skjoldet op</button>
   </form>
+
+//                                                                                      //
+//  De relevant nøgler findes her: https://ufst-my.github.io/CyberShield/keycollector/  //
+//                                                                                      //
+//  Nøgle = Key                                                                         //
+//                                                                                      //
+  
   <script>
     function saveToLocalStorage(event) {
       event.preventDefault();
@@ -93,6 +86,5 @@
       window.location.href = "success.html";
     }
   </script>
-  
 </body>
 </html>
