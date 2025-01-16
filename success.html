@@ -28,7 +28,8 @@
     const selectedIds = JSON.parse(localStorage.getItem('selectedIds')) || [];
     const maskedSelectedIds = selectedIds.map(maskId);
     function validateMaskedIds(ids) {
-      return ids.length === 3 && requiredIds.every(id => ids.includes(id));
+      return ids.length === requiredIds.length && 
+             requiredIds.every(id => ids.includes(id));
     }
     const resultElement = document.getElementById('result');
     if (validateMaskedIds(maskedSelectedIds)) {
